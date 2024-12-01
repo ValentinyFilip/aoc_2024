@@ -13,7 +13,7 @@ public class Day01 : BaseDay
 
     public override ValueTask<string> Solve_1()
     {
-        var numbers = _input.GetLines()
+        var numbers = _input.Lines()
             .Select(line =>
                 line.Split([' ', '\t'], StringSplitOptions.RemoveEmptyEntries))
             .Select(parts => new { Col1 = parts[0].StringToInt(), Col2 = parts[1].StringToInt() })
@@ -29,7 +29,7 @@ public class Day01 : BaseDay
 
     public override ValueTask<string> Solve_2()
     {
-        var numbers = _input.GetLines()
+        var numbers = _input.Lines()
             .Select(line =>
                 line.Split([' ', '\t'], StringSplitOptions.RemoveEmptyEntries))
             .Select(parts => new { Col1 = parts[0].StringToInt(), Col2 = parts[1].StringToInt() })
