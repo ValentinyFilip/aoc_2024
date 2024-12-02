@@ -3,7 +3,7 @@
 public static class EnumerableExtensions
 {
     public static IEnumerable<int> ToInt(this IEnumerable<string> input) =>
-        input.Where(char.IsDigit).Select(c => int.Parse(c.ToString()));
+        input.Select(c => int.Parse(c.ToString()));
 
     public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunkSize)
     {
