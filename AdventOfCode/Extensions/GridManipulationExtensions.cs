@@ -7,6 +7,11 @@ public static class GridManipulationExtensions
         return input.Select(line => line.Select(c => c - '0'));
     }
 
+    public static IEnumerable<IEnumerable<char>> ToGridChar(this IEnumerable<string> input)
+    {
+        return input.Select(line => line.Select(c => c));
+    }
+
     public static IEnumerable<(int x, int y)> Neighbors(this (int x, int y) point, int width, int height)
     {
         (int x, int y) = point;
@@ -14,6 +19,11 @@ public static class GridManipulationExtensions
 
         return deltas.Select(d => (x + d.Item1, y + d.Item2))
             .Where(p => p.Item1 >= 0 && p.Item2 >= 0 && p.Item1 < width && p.Item2 < height);
+    }
+
+    public static IEnumerable<(int x, int y)> AllNeighbors(this (int x, int y) point, int width, int height)
+    {
+        return point.Neighbors(width, height).Concat(point.DiagonalNeighbors(width, height));
     }
 
     public static IEnumerable<(int x, int y)> DiagonalNeighbors(this (int x, int y) point, int width, int height)
