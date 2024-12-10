@@ -2,7 +2,7 @@
 
 public static class StringExtensions
 {
-    public static IEnumerable<string> Lines(this string input) => input.Split('\n').Where(line => !string.IsNullOrWhiteSpace(line));
+    public static IEnumerable<string> Lines(this string input) => input.Split(['\n', '\r']).Where(line => !string.IsNullOrWhiteSpace(line));
 
     public static IEnumerable<int> ToInts(this string input, char delimiter)
     {

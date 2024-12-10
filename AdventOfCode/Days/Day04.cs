@@ -12,7 +12,7 @@ public sealed class Day04 : BaseDay
 
     private readonly (int dx, int dy)[] _directionsP2 =
     [
-        (-1, -1), (-1, 1), (1, -1), (1, 1)
+        (1, -1), (-1, 1), (1, 1), (-1, -1)
     ];
 
     public Day04()
@@ -51,22 +51,23 @@ public sealed class Day04 : BaseDay
             .Count(center =>
             {
                 if (grid[center.x][center.y] != 'A') return false;
+                char currentChar;
+                char lastChar = 'A';
 
-                var patterns = new[]
-                {
-                    new { firstChar = 'S', secondChar = 'M' },
-                    new { firstChar = 'M', secondChar = 'S' }
-                };
-
-                return patterns.Any(pattern =>
+                return
                     _directionsP2.Select((dir, i) =>
                     {
                         (int dx, int dy) = dir;
                         var pos = (x: center.x + dx, y: center.y + dy);
-                        // Check if diagonal positions match the pattern
-                        return pos.x >= 0 && pos.x < rows && pos.y >= 0 && pos.y < columns &&
-                               grid[pos.x][pos.y] == (i % 2 == 0 ? pattern.firstChar : pattern.secondChar);
-                    }).All(match => match));
+                        currentChar = grid[pos.x][pos.y];
+                        bool isValid = pos.x >= 0 && pos.x < rows && pos.y >= 0 && pos.y < columns &&
+                                       currentChar is 'S' or 'M';
+                        if (i is 2 or 0) lastChar = 'A';
+
+                        bool result = isValid && currentChar != lastChar;
+                        lastChar = currentChar;
+                        return result;
+                    }).All(match => match);
             });
         return new ValueTask<string>(result.ToString());
     }
